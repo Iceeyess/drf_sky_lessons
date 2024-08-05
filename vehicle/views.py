@@ -8,6 +8,6 @@ from vehicle.serializers import CarSerializer
 # Create your views here.
 
 
-class CarViewSet(viewsets.ViewSet):
+class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializer
     queryset = Car.objects.all()
