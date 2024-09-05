@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'users',
-    'vehicle',
+    'users.apps.UsersConfig',
+    'vehicle.apps.VehicleConfig',
+    'women',  #Balakirev
 ]
 
 MIDDLEWARE = [
