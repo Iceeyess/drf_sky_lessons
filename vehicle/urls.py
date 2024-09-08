@@ -17,5 +17,8 @@ urlpatterns = [
     path('moto/update/<int:pk>/', views.MotoUpdateAPIView.as_view(), name='moto-update'),
     path('moto/delete/<int:pk>/', views.MotoDeleteAPIView.as_view(), name='moto-delete'),
 
+    #  milage
+    path('milage/create/', views.MilageCreateAPIView.as_view(), name='milage-create'),
+
 
 ] + router.urls

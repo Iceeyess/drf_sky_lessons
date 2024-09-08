@@ -8,9 +8,9 @@ from women.apps import WomenConfig
 
 app_name = WomenConfig.name
 
-router = routers.SimpleRouter()
-router.register(r'women', views.WomenViewSet)
+# router = routers.SimpleRouter()
+# router.register(r'women', views.WomenAPIView, basename='women')
 
 urlpatterns = [
-    # path('api/v1/womenlist/', WomenViewSet.as_view({'get': 'list'})),
-] + router.urls
+    path('womenlist/', views.WomenAPIView.as_view()),
+]
