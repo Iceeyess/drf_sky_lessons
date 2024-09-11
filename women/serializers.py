@@ -6,6 +6,11 @@ from rest_framework.renderers import JSONRenderer
 
 from .models import Women
 
+class WomenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Women
+        fields = '__all__'
+        # fields = ['id', 'title', 'content', 'cat', ]
 
 # class WomenModel:
 #     def __init__(self, title, content):
@@ -13,19 +18,32 @@ from .models import Women
 #         self.content = content
 
 
-class WomenSerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=255)
-    content = serializers.CharField()
-    time_create = serializers.DateTimeField(read_only=True)
-    time_update = serializers.DateTimeField(read_only=True)
-    is_published = serializers.BooleanField(default=True)
-    cat_id = serializers.IntegerField()
+# class WomenSerializer(serializers.Serializer):
+#     id = serializers.IntegerField(read_only=True)
+#     title = serializers.CharField(max_length=255)
+#     content = serializers.CharField()
+#     time_create = serializers.DateTimeField(read_only=True)
+#     time_update = serializers.DateTimeField(read_only=True)
+#     is_published = serializers.BooleanField(default=True)
+#     cat_id = serializers.IntegerField()
+#
+#     def create(self, validated_data):
+#         return Women.objects.create(**validated_data)
+#
+#     def update(self, instance, validated_data):
+#         instance.title = validated_data.get("title", instance.title)
+#         instance.content = validated_data.get("content", instance.content)
+#         instance.time_update = validated_data.get("time_update", instance.time_update)
+#         instance.is_published = validated_data.get("is_published", instance.is_published)
+#         instance.cat_id = validated_data.get("cat_id", instance)
+#         instance.save()
+#         return instance
 
 
 # def encode():
 #     model = WomenModel('Angelina Jolie', 'Content: Angelina Jolie')
 #     model_sr = WomenSerializer(model)
-#     print(model_sr.data, type(model_sr.data), sep='\n')
+#     print(model_sr, model_sr.data, type(model_sr.data), sep='\n')
 #     json = JSONRenderer().render(model_sr.data)
 #     print(json)
 #
