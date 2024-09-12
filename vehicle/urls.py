@@ -18,6 +18,7 @@ urlpatterns = [
     path('moto/delete/<int:pk>/', views.MotoDeleteAPIView.as_view(), name='moto-delete'),
 
     #  milage
+    path('milage/', views.MilageListAPIView.as_view(), name='milage-list'),
     path('milage/create/', views.MilageCreateAPIView.as_view(), name='milage-create'),
     path('moto/milage/', views.MotoMilageListAPIView.as_view(), name='moto-milage'),
 
