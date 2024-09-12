@@ -8,11 +8,15 @@ from women.apps import WomenConfig
 
 app_name = WomenConfig.name
 
-# router = routers.SimpleRouter()
-# router.register(r'women', views.WomenAPIView, basename='women')
+router = routers.SimpleRouter()
+router.register(r'women', views.WomenViewSet, basename='women')
 
 urlpatterns = [
-    path('womenlist/', views.WomenAPIList.as_view()),
-    path('womenlist/<int:pk>/', views.WomenAPIUpdate.as_view()),
-    path('womendetail/<int:pk>/', views.WomenAPIDetailView.as_view()),
+    path('v1/', include(router.urls)),
+
+    # path('womenlist/', views.WomenAPIList.as_view()),
+    # path('womenlist/<int:pk>/', views.WomenAPIUpdate.as_view()),
+    # path('womenlist/', views.WomenViewSet.as_view({'get': 'list'})),
+    # path('womenlist/<int:pk>', views.WomenViewSet.as_view()),
+    # path('womenlist/<int:pk>', views.WomenViewSet.as_view({'put': 'update'})),
 ]
