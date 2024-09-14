@@ -7,10 +7,12 @@ from rest_framework.renderers import JSONRenderer
 from .models import Women
 
 class WomenSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     class Meta:
         model = Women
         fields = '__all__'
         # fields = ['id', 'title', 'content', 'cat', ]
+
 
 # class WomenModel:
 #     def __init__(self, title, content):
