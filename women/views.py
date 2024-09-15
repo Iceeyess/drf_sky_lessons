@@ -11,8 +11,10 @@ from django.forms import model_to_dict
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import GenericAPIView
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+from rest_framework.authentication import TokenAuthentication
+from rest_framework_simplejwt.tokens import AccessToken
 
 
 # class WomenViewSet(viewsets.ModelViewSet):
@@ -45,7 +47,9 @@ class WomenAPIList(generics.ListCreateAPIView):
 class WomenAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
-    permission_classes = [IsOwnerOrReadOnly, ]
+    permission_classes = [IsAuthenticated, ]
+    # authentication_classes = [TokenAuthentication, ]
+
 
 class WomenAPIDestroy(generics.RetrieveDestroyAPIView):
     queryset = Women.objects.all()
