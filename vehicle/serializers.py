@@ -1,6 +1,8 @@
 from zipapp import create_archive
 
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, AuthUser
+from rest_framework_simplejwt.tokens import Token
 
 from vehicle.models import Car, Moto, Milage
 
@@ -54,3 +56,11 @@ class MotoCreateSerializer(serializers.ModelSerializer):
             Milage.objects.create(moto=moto_item, **m)
 
         return moto_item
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def get_token(cls, user: AuthUser) -> Token:
+        token = super().get_token(user)
+        token['username'] = user.username
+        token['email'] = user.email
+        return token

@@ -2,6 +2,11 @@ from django.shortcuts import render
 from rest_framework import viewsets, generics
 from rest_framework.filters import OrderingFilter
 from django_filters import rest_framework as filters
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
+from users.models import User
+from .serializers import MyTokenObtainPairSerializer
 
 from vehicle.models import Car, Moto, Milage
 from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer, MotoMilageSerializer, \
@@ -14,6 +19,7 @@ from rest_framework.filters import SearchFilter
 class CarViewSet(viewsets.ModelViewSet):
     serializer_class = CarSerializer
     queryset = Car.objects.all()
+    permission_classes = [IsAdminUser, ]
 
 
 class MotoCreateAPIView(generics.CreateAPIView):
@@ -51,3 +57,6 @@ class MilageListAPIView(generics.ListAPIView):
     filter_backends = [filters.DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('car', 'moto', )
     ordering_fields = ('year', )
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer

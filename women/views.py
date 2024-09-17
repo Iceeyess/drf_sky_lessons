@@ -42,7 +42,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 class WomenAPIList(generics.ListCreateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
-    # permission_classes = [IsAuthenticatedOrReadOnly, ]
+    # permission_classes = [IsAuthenticated, ]
 
 class WomenAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Women.objects.all()
