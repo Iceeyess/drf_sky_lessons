@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from users.models import User
+from .paginators import VehiclePaginator
 from .serializers import MyTokenObtainPairSerializer
 
 from vehicle.models import Car, Moto, Milage
@@ -29,6 +30,7 @@ class MotoCreateAPIView(generics.CreateAPIView):
 class MotoListAPIView(generics.ListAPIView):
     serializer_class = MotoSerializer
     queryset = Moto.objects.all()
+    pagination_class =VehiclePaginator
 
 
 class MotoRetrieveAPIView(generics.RetrieveAPIView):

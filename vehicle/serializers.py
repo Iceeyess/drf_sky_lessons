@@ -5,6 +5,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, Auth
 from rest_framework_simplejwt.tokens import Token
 
 from vehicle.models import Car, Moto, Milage
+from vehicle.validators import TitleValidator
+import re
 
 
 class MilageSerializer(serializers.ModelSerializer):
@@ -48,6 +50,8 @@ class MotoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Moto
         fields = '__all__'
+        validators = [TitleValidator(field='title'), serializers.UniqueTogetherValidator(queryset=Moto.objects.all(),
+                                                                                         fields=['title', 'description'])]
 
     def create(self, validated_data):
         milage = validated_data.pop('milage')
