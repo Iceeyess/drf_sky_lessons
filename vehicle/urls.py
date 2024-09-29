@@ -1,3 +1,5 @@
+from os.path import basename
+
 from vehicle.apps import VehicleConfig
 from rest_framework.routers import DefaultRouter
 from django.urls import path
@@ -8,7 +10,7 @@ app_name = VehicleConfig.name
 
 
 router = DefaultRouter()
-router.register(r'cars', views.CarViewSet, basename='cars')
+router.register(r'cars', views.CarViewSet, basename='car')
 
 urlpatterns = [
     path('moto/create/', views.MotoCreateAPIView.as_view(), name='moto-create'),

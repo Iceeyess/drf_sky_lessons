@@ -63,6 +63,7 @@ class MotoCreateSerializer(serializers.ModelSerializer):
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
     def get_token(cls, user: AuthUser) -> Token:
         token = super().get_token(user)
         token['username'] = user.username
