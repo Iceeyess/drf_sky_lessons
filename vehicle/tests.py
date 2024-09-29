@@ -6,7 +6,7 @@ from rest_framework_simplejwt.tokens import Token
 from django.urls import reverse, reverse_lazy
 import json
 from users.models import User
-from vehicle.models import Moto
+from vehicle.models import Moto, Car
 
 
 # Create your tests here.
@@ -60,12 +60,13 @@ class VehicleTestCase(APITestCase):
         data = {
             'title': 'Test car',
             'description': 'Test car description',
-            'milage': []
+            'milage': [],
         }
-        car_url = reverse_lazy('vehicle:car-create')
+        car_url = reverse_lazy('vehicle:car-list')
         response = self.client.post(path=car_url, format='json', data=data, headers=self.headers)
+        print(response.json())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(json.loads(response.content).get('title'), 'Test car')
         data |= {'id': 1}  # Для тестирования содержимого модели
         self.assertEqual(response.json(), data)
-        self.assertTrue(Moto.objects.all().exists())
+        self.assertTrue(Car.objects.all().exists())
