@@ -32,15 +32,15 @@ class VehicleTestCase(APITestCase):
             'Content-Type': 'application/json'
         }
 
-    def test_create_car(self):
-        """Тестирование создание машин"""
+    def test_create_moto(self):
+        """Тестирование создание Мото"""
         data = {
             'title': 'Test moto',
             'description': 'Test moto description',
             'milage': []
         }
-        cars_url = reverse_lazy('vehicle:moto-create')
-        response = self.client.post(path=cars_url, format='json', data=data, headers=self.headers)
+        moto_url = reverse_lazy('vehicle:moto-create')
+        response = self.client.post(path=moto_url, format='json', data=data, headers=self.headers)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(json.loads(response.content).get('title'), 'Test moto')
         data |= {'id': 1}  # Для тестирования содержимого модели
@@ -48,9 +48,24 @@ class VehicleTestCase(APITestCase):
         self.assertTrue(Moto.objects.all().exists())
 
     def test_list_moto(self):
-        """Тестирование списка"""
+        """Тестирование списка мото"""
         Moto.objects.create(title='Test moto', description='Test description')
         url = reverse('vehicle:moto-list')
         response = self.client.get(url, headers=self.headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(len(response.json().get('results')) > 0)
+
+    def test_create_car(self):
+        """Тестирование создание машин"""
+        data = {
+            'title': 'Test car',
+            'description': 'Test car description',
+            'milage': []
+        }
+        car_url = reverse_lazy('vehicle:car-create')
+        response = self.client.post(path=car_url, format='json', data=data, headers=self.headers)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(json.loads(response.content).get('title'), 'Test car')
+        data |= {'id': 1}  # Для тестирования содержимого модели
+        self.assertEqual(response.json(), data)
+        self.assertTrue(Moto.objects.all().exists())

@@ -10,6 +10,5 @@ class TitleValidator:
         req = re.compile(r'^[а-яА-Яa-zA-Z0-9\.\-\ ]+$')
         print(req)
         tmp_val = dict(value).get(self.field)
-        print(tmp_val)
         if not bool(req.match(tmp_val)):
             raise ValidationError('Title is not ok')
