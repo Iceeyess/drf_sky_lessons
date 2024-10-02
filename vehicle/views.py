@@ -18,6 +18,7 @@ from rest_framework.filters import SearchFilter
 
 
 class CarViewSet(viewsets.ModelViewSet):
+    """Viewsets по автомобилю"""
     serializer_class = CarSerializer
     queryset = Car.objects.all()
     # permission_classes = [IsAdminUser, ]
