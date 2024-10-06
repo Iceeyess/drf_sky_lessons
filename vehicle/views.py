@@ -14,6 +14,9 @@ from vehicle.serializers import CarSerializer, MotoSerializer, MilageSerializer,
     MotoCreateSerializer
 from rest_framework.filters import SearchFilter
 
+from .tasks import check_milage
+
+
 # Create your views here.
 
 
@@ -49,6 +52,13 @@ class MotoDeleteAPIView(generics.DestroyAPIView):
 
 class MilageCreateAPIView(generics.CreateAPIView):
     serializer_class =  MilageSerializer
+
+    def perform_create(self, serializer):
+        new_milage = serializer.save()
+        if new_milage.car:
+            check_milage.delay(new_milage.car_id, 'Car')
+        else:
+            check_milage.delay(new_milage.moto_id, 'Moto')
 
 class MotoMilageListAPIView(generics.ListAPIView):
     serializer_class = MotoMilageSerializer
