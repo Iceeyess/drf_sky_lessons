@@ -1,4 +1,4 @@
-#!/home/dima/PycharmProjects/drf_sky_lessons/env/bin/python3
+#!/home/dima/PycharmProjects/drf_sky_lessons/env/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
